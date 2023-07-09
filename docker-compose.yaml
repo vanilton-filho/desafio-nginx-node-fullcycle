@@ -1,0 +1,39 @@
+version: '3'
+services:
+  nginx-proxy:
+    build:
+      context: ./nginx
+    container_name: proxy
+    networks:
+      - fullcycle-network
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+  app:
+    build:
+      context: ./node
+    container_name: app
+    networks:
+      - fullcycle-network
+    depends_on:
+      - database
+    entrypoint: wait-for database:3306 -t 40 -- node index.js
+  database:
+    build:
+      context: ./mysql
+    container_name: mysqldb
+    command: --innodb-use-native-aio=0
+    networks:
+      - fullcycle-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=desafiofullcycle
+      - MYSQL_COLLATION=utf8_general_ci
+    volumes:
+      - mysqlbackup:/var/lib/mysql
+networks:
+  fullcycle-network:
+    driver: bridge
+volumes:
+  mysqlbackup:
