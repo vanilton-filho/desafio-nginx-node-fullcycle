@@ -18,7 +18,9 @@ services:
       - fullcycle-network
     depends_on:
       - database
-    entrypoint: wait-for database:3306 -t 40 -- node index.js
+    entrypoint: wait-for database:3306 -t 40 -- ./start.sh
+    volumes:
+      - ./node:/usr/src/app
   database:
     build:
       context: ./mysql
