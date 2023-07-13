@@ -13,6 +13,10 @@ Utilizei a API [gerador-nomes](https://github.com/centraldedados/gerador-nomes) 
 aleatórios a serem adicionados na base. Toda vez que acessar a página um novo
 nome é adicionado e a lista é atualizada.
 
+Foi adicionado o `nodemon` como servidor para trabalhar com o desenvolvimento de nossa app permitindo
+que possamos ir alterando e salvando os nossos arquivos JavaScript, bastando dar o refresh na página
+para ver o resultado.
+
 Para testar utilize o seguinte comando:
 
 `docker-compose up --build`
